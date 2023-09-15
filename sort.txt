@@ -1,0 +1,46 @@
+selection sort:
+    find min and give his deserved 
+    index.
+        >O(n²) both better and
+               worst case
+
+insertion sort:
+    choose a base and then move
+    elements until base>element
+    (thats when element<=base, 
+    thus base will be at its 
+    deserved index.)
+    Obs: elements<base are 
+    sorted as the algorithm runs.
+        >O(n) best case
+        >O(n²) worst case
+
+merge sort:
+    divides the array in two parts
+    until each part is already 
+    sorted. Then, merges all pieces
+    into one single array.
+        >Merge function logic:
+            i)Create an aux array, which will contain
+            v's elements sorted from lowest to highest
+            ii)3 cases:
+                - Each step uses elements from different
+                sub-containers:
+                Ex:  |3|7| and |1|6|
+                    order: {1,3,6,7}
+                - One sub-container has all its elements used
+                before the other hasn't:
+                    |a|b|c| and |d|e|
+                    order: {d,e,a,b,c}
+                    |a|b|c| and | | |
+                    Because we adopted a right and left iterator
+                    strategy, right_it > right_end when completely used.
+                    Then we simply iterate trough the left sub-array.
+                    If the left is completely used first, the same logic
+                    is used.
+                    Therefore, three conditions to check before merging:
+                    i) If we used left entirely -> try right
+                    ii) Else check 1 element of each sub-array and insert 
+                    in aux-array the smallest of the two.
+        >O(nlogn) both better and
+                  worst case
