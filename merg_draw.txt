@@ -12,4 +12,4 @@
     ---
         > left_it > mid  => try right
         > right_it > end => try left
-        > left_it < right_it ? use left : use right
+        > left_element < right_element ? use left : use right
