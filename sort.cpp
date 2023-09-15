@@ -44,7 +44,7 @@ void merge(T *v, int low, int mid, int high){
     int left_it = low, right_it = mid + 1, aux_it = 0;
     T *aux = new T[high-end+1];
     for(int i=0; i<high + 1; i++){
-        if(left_it > mid+1)           aux[aux_it++] = v[right_it++];
+        if(left_it > mid)             aux[aux_it++] = v[right_it++];
         else 
         if (right_it > high)          aux[aux_it++] = v[left_it++];
         else 
