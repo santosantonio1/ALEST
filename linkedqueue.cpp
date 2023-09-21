@@ -44,8 +44,6 @@ class linked_queue{
         return true;
     }
     T front(){
-        T a;
-        if(empty()) return a;
         return head->data;
     }
     void clear(){
