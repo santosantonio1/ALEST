@@ -62,30 +62,25 @@ class linked_list{
         n_elements++;
     }    
     void insert(T d, int pos){
-        node *itr = head, *new_node = new node(d);
-        if(pos<=0) {
-            push_front(d);
-        }
+        if(pos<=0) push_front(d);
+        else 
+        if(pos>=n_elements) push_back(d);
         else {
+        node *itr = head, *new_node = new node(d);
         int i=0;
-        bool inseriu = false;
         while(itr != tail){
             if(i==pos-1) {
                 new_node->next = itr->next;
                 itr->next = new_node;
                 new_node->prev = itr;
-                inseriu = true;
+                new_node->next->prev = new_node;
+                n_elements++;
                 break;
             }
             itr = itr->next;
             i++;
         }
-            if(!inseriu){
-                push_back(d);
-                inseriu = true;
-            }
         }
-        n_elements++;
     }
     void pop_front(){
         if(head != nullptr) {
@@ -107,33 +102,25 @@ class linked_list{
         n_elements--;
     }
     void remove(int pos){
-        if(pos<=0) {
-            pop_front();
-            return;
-        }
-        if(pos>=n_elements) {
-            pop_back();
-            return;
-        }
+        if(pos<=0) pop_front();
+        else
+        if(pos>=n_elements-1) pop_back();
+        else {
         int i=0;
-        node *itr = head;
-        bool removeu = false;
+        node *itr = head, *del;
         while(itr != tail){
             if(i==pos-1){
-                itr->next->next->prev = itr;
-                itr->next = itr->next->next;
-                removeu = true;
-                return;
+                del = itr->next;
+                itr->next = del->next;
+                del->next->prev = itr;
+                n_elements--;
+                delete del;
+                break;
             }
             i++;
             itr = itr->next;
             }
-        if(!removeu){
-            pop_back();
-            removeu = true;
-            return;
         }
-        
     }
     void print(){
         node *aux = head;
@@ -196,15 +183,15 @@ int main() {
                 break;
             case '{':
                 if(l.empty()) cout << "ERRO" << endl;
-                l.pop_front();
+                else l.pop_front();
                 break;
             case '}':
                 if(l.empty()) cout << "ERRO" << endl;
-                l.pop_back();
+                else l.pop_back();
                 break;
             case '-':
                 cin >> ws >> index;
-                if(index > l.size() || index<0) 
+                if(index >= l.size() || index<0) 
                     cout << "ERRO" << endl;
                 else 
                     l.remove(index);
