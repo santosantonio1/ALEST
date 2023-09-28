@@ -34,25 +34,27 @@ class linked_stack{
     }
     void push(T e){
         node *new_node = new node(e);
-        if(n_elements!=0){
+        if(head != nullptr){
             new_node->next = head;
             head->prev = new_node;
             head = new_node;
         }
-            head = new_node;
+        else head = new_node;
         n_elements++;
     }
     bool pop(){
-        if(n_elements > 0){
+        node *del = head;
+        if(head != nullptr){
             head=head->next;
-            head->prev = nullptr;
+            if(head != nullptr) head->prev = nullptr;
+            delete del;
             n_elements--;
             return true;
         }
         return false;
     }
     bool top(T &e){
-        if(n_elements != 0){
+        if(head != nullptr){
             e = head->data;
             return true;
         }
@@ -72,6 +74,7 @@ class linked_stack{
             delete aux;
             n_elements--;
         }
+        n_elements = 0;
         head = nullptr;
     }
 };
@@ -85,11 +88,11 @@ int main(){
     l.pop();
     l.pop();
     cout << "SIZE: " << l.size() << endl;
-    int t = l.size();
-    for(int i=0; i<t; i++){
-        l.top(x);
+    l.top(x);
+    while(l.pop()){
         cout << x << " ";
-        l.pop();
+        l.top(x);
     }
     cout << endl;
+    return 0;
 }
