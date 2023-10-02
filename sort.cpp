@@ -21,9 +21,9 @@ void selection_sort(T*v, int t){
             if(v[j]<v[min])
                 min = j;
             if(min!=i) {
-                T aux = v[j];
-                v[j]=v[j+1];
-                v[j+1]=aux;
+                T aux = v[min];
+                v[min]=v[i];
+                v[i]=aux;
             }
     }
 }
