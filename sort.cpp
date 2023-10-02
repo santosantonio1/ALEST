@@ -18,7 +18,7 @@ void selection_sort(T*v, int t){
     for(int i=0; i<t-1;i++){
         int min = i;
         for(int j=0;j<t;j++)
-            if(v[j]<min)
+            if(v[j]<v[min])
                 min = j;
             if(min!=i) {
                 T aux = v[j];
