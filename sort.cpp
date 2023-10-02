@@ -17,7 +17,7 @@ template <typename T>
 void selection_sort(T*v, int t){
     for(int i=0; i<t-1;i++){
         int min = i;
-        for(int j=0;j<t;j++)
+        for(int j=i+1;j<t;j++)
             if(v[j]<v[min])
                 min = j;
             if(min!=i) {
