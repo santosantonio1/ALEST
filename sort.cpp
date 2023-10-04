@@ -42,7 +42,7 @@ void insertion_sort(T *v, int t){
 template <typename T>
 void merge(T *v, int low, int mid, int high){
     int left_it = low, right_it = mid + 1, aux_it = 0;
-    T *aux = new T[high-end+1];
+    T *aux = new T[high-low+1];
     for(int i=0; i<high + 1; i++){
         if(left_it > mid)             aux[aux_it++] = v[right_it++];
         else 
