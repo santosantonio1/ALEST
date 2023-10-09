@@ -52,7 +52,7 @@ void merge(T *v, int low, int mid, int high){
         else        
                                       aux[aux_it++] = v[right_it++];
     }
-    for(int i=0; i<right_it; i++) v[low++] = aux[i];
+    for(int i=0; i<aux_it; i++) v[low++] = aux[i];
     delete[] aux;
 }
 template <typename T>
