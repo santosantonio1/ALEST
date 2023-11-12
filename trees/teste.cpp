@@ -1,6 +1,7 @@
-#include <iostream>
 #include "generic_tree.hpp"
+#include <iostream>
 #include <iomanip>
+#include <vector>
 using namespace std;
 
 void showTree(node_tree<char> *root) {
@@ -35,11 +36,11 @@ int main() {
   node_tree<char> *root = new node_tree<char>('A');     root->addSubtree( b );
                                                         root->addSubtree( c );
   
-  showTree(root);
-  b->removeSubtree(d);
+  showTree( root );
+  b->removeSubtree( d );
   
-  showTree(root);
-  root->removeSubtree(b);
+  showTree( root );
+  root->removeSubtree( b );
   
   showTree( root );
   

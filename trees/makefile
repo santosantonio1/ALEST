@@ -24,5 +24,5 @@ rec_tree.o:		rec_tree.cpp
 ex5.o:			ex5.cpp
 				@g++ ${CFLAGS} ex5.cpp -D DEBUG
 
-ex6.o:			ex6.cpp
+ex6.o:			generic_tree.hpp ex6.cpp
 				@g++ ${CFLAGS} ex6.cpp -D DEBUG
