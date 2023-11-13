@@ -7,12 +7,13 @@
 #include <queue>
 using namespace std;
 
-template <typename T> class node_tree{
+template <typename T> class tree{
     private:
-    
-    node_tree *parent;
-    vector<node_tree *> childs;
+
+    tree *parent;
+    vector<tree *> childs;
     T data;
+    
     string getNodes(){
         stringstream ss;
         for(int i=0;i<childs.size();i++){
@@ -26,11 +27,11 @@ template <typename T> class node_tree{
 
     public:
     
-    node_tree(T d){
+    tree(T d){
         data = d; parent = nullptr;
     }
 
-    ~node_tree(){
+    ~tree(){
         for(int i=0;i<childs.size();i++) delete childs[i];
         #ifdef DEBUG
         cout << "> Node " << data << " deleted..." << endl;
@@ -41,15 +42,15 @@ template <typename T> class node_tree{
     
     void setData(T d){ data = d; }
     
-    node_tree * getParent(){ return parent; }
+    tree * getParent(){ return parent; }
     
-    node_tree * child(int i){ return (i<0 || i<childs.size()) ? childs[i] : nullptr; }
+    tree * child(int i){ return (i<0 || i<childs.size()) ? childs[i] : nullptr; }
     
     int degree(){ return childs.size(); }
     
     int depth(){
         int d=0;
-        node_tree *itr = parent;
+        tree *itr = parent;
         while(itr){
             itr=itr->parent;
             d++;
@@ -74,14 +75,14 @@ template <typename T> class node_tree{
         return s;
     }
     
-    void addSubtree(node_tree *n){
+    void addSubtree(tree *n){
         if(!n) return;
         n->parent = this;        
         childs.push_back(n);
     }
 
-    bool removeSubtree(node_tree *n){ 
-        node_tree *itr;
+    bool removeSubtree(tree *n){ 
+        tree *itr;
         for(int i=0;i<childs.size();i++){
             itr=childs[i];
             if(itr==n){ childs.erase(childs.begin() + i); delete itr; return true; }
@@ -106,10 +107,10 @@ template <typename T> class node_tree{
     
     bool isExternal(){ return childs.size() == 0; }
     
-    node_tree * find(T d){
+    tree * find(T d){
         if(data == d) return this;
         for(int i=0;i<childs.size();i++){
-            node_tree *itr = childs[i]->find(d);
+            tree *itr = childs[i]->find(d);
             if(itr != nullptr) return itr; 
         }
         return nullptr;
@@ -117,8 +118,8 @@ template <typename T> class node_tree{
     
     string graphViz(){
         stringstream ss;
-        ss << "graph node_tree {" << endl;
-        ss << "\tnode[shape=circle]" << endl;
+        ss << "graph tree {" << endl;
+        ss << "\tnode [shape=circle]" << endl;
         ss << getNodes();
         ss << "}" << endl;
         return ss.str();
@@ -142,11 +143,11 @@ template <typename T> class node_tree{
 
     // IMPLEMENTAR DFS
     string levelorder(){
-        queue<node_tree *> q;
+        queue<tree *> q;
         stringstream ss;
         q.push(this);
         while(q.size()){
-            node_tree *itr = q.front();
+            tree *itr = q.front();
             ss << itr->data;
             q.pop();
             for(int i=0;i<itr->degree();i++){
