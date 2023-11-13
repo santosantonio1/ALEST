@@ -4,6 +4,7 @@
 #include <iterator>
 #include <vector>
 #include <sstream>
+#include <queue>
 using namespace std;
 
 template <typename T> class node_tree{
@@ -25,7 +26,7 @@ template <typename T> class node_tree{
 
     public:
     
-    node_tree(T d) {
+    node_tree(T d){
         data = d; parent = nullptr;
     }
 
@@ -36,17 +37,17 @@ template <typename T> class node_tree{
         #endif
     }
     
-    T getData() { return data; }
+    T getData(){ return data; }
     
-    void setData(T d) { data = d; }
+    void setData(T d){ data = d; }
     
-    node_tree * getParent() { return parent; }
+    node_tree * getParent(){ return parent; }
     
-    node_tree * child(int i) { return (i<0 || i<childs.size()) ? childs[i] : nullptr; }
+    node_tree * child(int i){ return (i<0 || i<childs.size()) ? childs[i] : nullptr; }
     
-    int degree() { return childs.size(); }
+    int degree(){ return childs.size(); }
     
-    int depth() {
+    int depth(){
         int d=0;
         node_tree *itr = parent;
         while(itr){
@@ -56,7 +57,7 @@ template <typename T> class node_tree{
         return d;
     }    
     
-    int height() {
+    int height(){
         int h=0;
         for(int i=0;i<childs.size();i++){
             int  height = 1 + childs[i]->height();
@@ -65,7 +66,7 @@ template <typename T> class node_tree{
         return h;
     }
     
-    int size() {
+    int size(){
         int s=1;
         for(int i=0;i<childs.size();i++){
              s += childs[i]->size();
@@ -73,13 +74,13 @@ template <typename T> class node_tree{
         return s;
     }
     
-    void addSubtree(node_tree *n) {
+    void addSubtree(node_tree *n){
         if(!n) return;
         n->parent = this;        
         childs.push_back(n);
     }
 
-    bool removeSubtree(node_tree *n) { 
+    bool removeSubtree(node_tree *n){ 
         node_tree *itr;
         for(int i=0;i<childs.size();i++){
             itr=childs[i];
@@ -89,7 +90,7 @@ template <typename T> class node_tree{
         return false;
     }   
     
-    bool contains(T d) {
+    bool contains(T d){
         
         if(data==d) return true;
 
@@ -99,11 +100,11 @@ template <typename T> class node_tree{
         return false;
     }
     
-    bool isRoot() { return parent==nullptr; }
+    bool isRoot(){ return parent==nullptr; }
     
-    bool isInternal() { return parent!=nullptr && childs.size()!=0; }
+    bool isInternal(){ return parent!=nullptr && childs.size()!=0; }
     
-    bool isExternal() { return childs.size() == 0; }
+    bool isExternal(){ return childs.size() == 0; }
     
     node_tree * find(T d){
         if(data == d) return this;
@@ -122,5 +123,38 @@ template <typename T> class node_tree{
         ss << "}" << endl;
         return ss.str();
     }
+
+    string preorder(){
+        stringstream ss;
+        ss << data;
+        for(int i=0;i<childs.size();i++)
+            ss << childs[i]->preorder();
+        return ss.str();
+    }
+
+    string postorder(){
+        stringstream ss;
+        for(int i=0;i<childs.size();i++)
+            ss <<  childs[i]->postorder();
+        ss << data;
+        return ss.str();
+    }
+
+    // IMPLEMENTAR DFS
+    string levelorder(){
+        queue<node_tree *> q;
+        stringstream ss;
+        q.push(this);
+        while(q.size()){
+            node_tree *itr = q.front();
+            ss << itr->data;
+            q.pop();
+            for(int i=0;i<itr->degree();i++){
+                q.push(itr->child(i));
+            }
+        }
+        return ss.str();
+    }
+
 };
 #endif
