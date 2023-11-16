@@ -19,5 +19,8 @@ int main(){
     system("del ex13.o");
     system("del ex13.exe");
     
+    system("del ex15.o");
+    system("del ex15.exe");
+
     return 0;
 }

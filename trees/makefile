@@ -4,9 +4,10 @@ EXE2=ex5
 EXE3=ex6
 EXE4=ex8
 EXE5=ex13
+EXE6=ex15
 CLEAN=clean
 
-all:			${EXE1} ${EXE2} ${EXE3} ${CLEAN} ${EXE4} ${EXE5}
+all:			${EXE1} ${EXE2} ${EXE3} ${CLEAN} ${EXE4} ${EXE5} ${EXE6}
 
 ${CLEAN}:		
 				@g++ -o ${CLEAN} clean.cpp
@@ -26,6 +27,9 @@ ${EXE4}:		ex8.o
 ${EXE5}:		ex13.o
 				@g++ -o ${EXE5} ex13.o
 
+${EXE6}:		ex15.o
+				@g++ -o ${EXE6} ex15.o
+
 rec_tree.o:		rec_tree.cpp
 				@g++ ${CFLAGS} rec_tree.cpp -D DEBUG
 
@@ -40,3 +44,6 @@ ex8.o:			generic_tree.hpp ex8.cpp
 
 ex13.o:			binary_tree.hpp ex13.cpp
 				@g++ ${CFLAGS} ex13.cpp -D DEBUG
+
+ex15.o:			bst.hpp ex15.cpp
+				@g++ ${CFLAGS} ex15.cpp -D DEBUG

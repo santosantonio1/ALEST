@@ -63,6 +63,16 @@ template <typename T> class binary_tree{
         if(subtree) subtree->parent = this;
     }
     
+    void setLeft(binary_tree *subtree){
+        left = subtree;
+        if(subtree) subtree->parent = this;
+    }
+
+    void setRight(binary_tree *subtree){
+        right = subtree;
+        if(subtree) subtree->parent = this;
+    }
+
     void removeLeft(){
         addLeft(nullptr);
     }
