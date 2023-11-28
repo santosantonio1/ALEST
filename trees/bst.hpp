@@ -10,27 +10,27 @@ template <typename T> class bst{
     // MÉTODO PARA ACHAR A POSIÇÃO CORRETA PARA A INSERÇÃO
     // FOI NECESSÁRIO ADICIONAR OS MÉTODOS DE SET NA CLASSE
     // binary_tree PARA NÃO DAR delete nullptr 
-    void find_position(binary_tree<T> *node, binary_tree<T> *newNode){
+    void add(binary_tree<T> *node, binary_tree<T> *newNode){
         if(newNode->getData() < node->getData()){
             if(!node->getLeft())    node->setLeft(newNode);
-            else    find_position(node->getLeft(), newNode);
+            else    add(node->getLeft(), newNode);
         }
         else{
             if(!node->getRight())   node->setRight(newNode);
-            else    find_position(node->getRight(), newNode); 
+            else    add(node->getRight(), newNode); 
         }        
     }
 
-    bool find_element(binary_tree<T> *node, T e){
+    bool contains(binary_tree<T> *node, T e){
         if(e == node->getData()) return true;
         else{
             if(e < node->getData()){
                 if(!node->getLeft()) return false;
-                else return find_element(node->getLeft(), e);
+                else return contains(node->getLeft(), e);
             }
             else{
                 if(!node->getRight()) return false;
-                else return find_element(node->getRight(), e);
+                else return contains(node->getRight(), e);
             }
         }
 
@@ -47,12 +47,12 @@ template <typename T> class bst{
     void add(T e){
         binary_tree<T> * newNode = new binary_tree<T>(e);
         if(!root) root = newNode;
-        else find_position(root, newNode);
+        else add(root, newNode);
     }
 
     bool contains(T e){
         if(!root) return false;
-        return find_element(root, e);
+        return contains(root, e);
     }
 
     string graphViz(){

@@ -43,6 +43,10 @@ template <typename T> class binary_tree{
         return parent;
     }
 
+    void setParent(binary_tree<T> *node){
+        parent = node;
+    }
+
     binary_tree * getLeft(){
         return left;
     }
@@ -115,12 +119,10 @@ template <typename T> class binary_tree{
         int r = (right) ? (1+right->height()) : 0;
         return (l>r) ? l : r;
     }
-    
-    int size(){
-        int s = 1;
-        if(left) s+= left->size();
-        if(right) s+= right->size();
-        return s;
+
+    int size(binary_tree *subtree){
+        if(!subtree) return 0;
+        return 1 + size(subtree->left) + size(subtree->right); 
     }
 
     bool contains(T d){
@@ -182,6 +184,19 @@ template <typename T> class binary_tree{
         stringstream ss;
         while(q.size()){
             binary_tree *itr = q.front();
+           
+            #ifdef DEBUG
+            cout << " node: " << itr->getData();
+            cout << " - parent: ";
+            if(itr->getParent()) cout << itr->getParent()->getData();
+            else cout << "nullptr"; 
+            cout << " - childs: ";
+            if(itr->getLeft()) cout << itr->getLeft()->getData() << " e ";
+            else cout << "nullptr e ";
+            if(itr->getRight()) cout << itr->getRight()->getData() << endl << endl;
+            else cout << "nullptr" << endl << endl;
+            #endif
+
             ss << itr->data;
             q.pop();
             if(itr->left) q.push(itr->left);
