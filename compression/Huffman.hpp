@@ -5,6 +5,8 @@
 #include "../heap/MinPQ.hpp"
 using namespace std;
 
+// Not working yet
+
 class Huffman
 {
     public:
