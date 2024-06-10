@@ -23,17 +23,11 @@ class SymbolGraph
                     }
                 }
             }
-            
-            std::println("idx built: {}", idx.size());
-
-            std::println("{} {}", idx.at("...And Justice for All (1979)"), idx.at("Clute, Sidney"));
 
             keys.resize(idx.size());
             for(const auto &p : idx) {
                 keys[idx.at(p.first)] = p.first;
             }
-
-            std::println("keys built: {}", keys.size());
             
             in.close();
             g = new Graph(idx.size());
@@ -47,28 +41,12 @@ class SymbolGraph
             {
                 title = true;
                 auto split = std::views::split(line, delimiter);
-                // for(const auto &s : split)
-                // {
-                //     if(title) {
-                //         // tidx = i;
-                //         // t = std::string{s.begin(), s.end()};
-                //         t = "asdas";
-                //         std::println("i: {}", tidx);
-                //         title = false;
-                //         // std::println("title: {}", keys[tidx]);
-                //     } else {
-                //         g->addEdge(tidx, 
-                //                    idx.at(std::string{s.begin(), s.end()}));
-                //     }
-                //     i++;
-                // }
 
                 for(const auto &s : split)
                 {
                     if(title) {
                         tidx = idx.at(std::string{s.begin(), s.end()});
                         title = false;
-                        // std::println("{}", keys[tidx]);
                     } else {
                         g->addEdge(tidx,
                                    idx.at(std::string{s.begin(), s.end()}));
